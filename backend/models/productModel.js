@@ -4,9 +4,13 @@ const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
   {
-    name: {
+    creater: {
       type: String,
       required: true,
+    },
+    name: {
+      type: String,
+      unique: true,
     },
     price: {
       type: Number,
@@ -25,7 +29,10 @@ const productSchema = new Schema(
       required: true,
     },
     description: String,
-    like: Number,
+    likes: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

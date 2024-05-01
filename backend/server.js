@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 
 import productRoutes from "./routers/products.js";
@@ -13,6 +14,7 @@ mongoose.connect(process.env.MONGOOSE_URL).then(() => {
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Welcome to my api");
