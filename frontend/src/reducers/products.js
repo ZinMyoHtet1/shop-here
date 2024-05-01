@@ -5,7 +5,8 @@ const productReducer = (state = [], action) => {
     case FETCH_ALL:
       return action.payload;
     case CREATE:
-      return [...state.products, action.payload];
+      console.log(action.payload);
+      return { products: [...state.products, action.payload.product] };
     case FETCH_A_PRODUCT:
       return action.payload;
     default:

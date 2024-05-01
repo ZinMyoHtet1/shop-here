@@ -57,95 +57,99 @@ const PostForm = ({ id }) => {
 
   console.log(formik.errors, formik?.touched);
   return (
-    <Paper elevation={3} sx={{ width: 250 }}>
-      <Box component="form" onSubmit={formik.handleSubmit} p="10px">
-        <TextField
-          label="Creater"
-          name="creater"
-          size="small"
-          fullWidth
-          {...formik.getFieldProps("creater")}
-          error={formik?.touched?.creater && !!formik?.errors?.creater}
-          sx={{ mb: "20px" }}
-        />
+    <Box>
+      <Paper elevation={3} sx={{ width: 280 }}>
+        <Box component="form" onSubmit={formik.handleSubmit} p="10px">
+          <TextField
+            label="Creater"
+            name="creater"
+            size="small"
+            fullWidth
+            {...formik.getFieldProps("creater")}
+            error={formik?.touched?.creater && !!formik?.errors?.creater}
+            sx={{ mb: "20px" }}
+          />
 
-        <TextField
-          label="Name"
-          name="name"
-          size="small"
-          fullWidth
-          {...formik.getFieldProps("name")}
-          error={formik?.touched?.name && !!formik?.errors?.name}
-          sx={{ mb: "20px" }}
-        />
+          <TextField
+            label="Name"
+            name="name"
+            size="small"
+            fullWidth
+            {...formik.getFieldProps("name")}
+            error={formik?.touched?.name && !!formik?.errors?.name}
+            sx={{ mb: "20px" }}
+          />
 
-        <TextField
-          label="Price"
-          name="price"
-          size="small"
-          type="number"
-          fullWidth
-          inputProps={{ min: 0 }}
-          {...formik.getFieldProps("price")}
-          error={formik?.touched?.price && !!formik?.errors?.price}
-          sx={{ mb: "20px" }}
-        />
+          <TextField
+            label="Price"
+            name="price"
+            size="small"
+            type="number"
+            fullWidth
+            inputProps={{ min: 0 }}
+            {...formik.getFieldProps("price")}
+            error={formik?.touched?.price && !!formik?.errors?.price}
+            sx={{ mb: "20px" }}
+          />
 
-        <TextField
-          label="Currency"
-          name="currency"
-          size="small"
-          fullWidth
-          select
-          defaultValue={""}
-          {...formik.getFieldProps("currency")}
-          error={formik?.touched?.currency && !!formik?.errors?.currency}
-          sx={{ mb: "20px" }}
-        >
-          {currencyOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+          <TextField
+            label="Currency"
+            name="currency"
+            size="small"
+            fullWidth
+            select
+            defaultValue={""}
+            {...formik.getFieldProps("currency")}
+            error={formik?.touched?.currency && !!formik?.errors?.currency}
+            sx={{ mb: "20px" }}
+          >
+            {currencyOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
 
-        <TextField
-          label="Instock"
-          name="instock"
-          size="small"
-          type="number"
-          fullWidth
-          inputProps={{ min: 0 }}
-          {...formik.getFieldProps("instock")}
-          error={formik?.touched?.instock && !!formik?.errors?.instock}
-          sx={{ mb: "20px" }}
-        />
+          <TextField
+            label="Instock"
+            name="instock"
+            size="small"
+            type="number"
+            fullWidth
+            inputProps={{ min: 0 }}
+            {...formik.getFieldProps("instock")}
+            error={formik?.touched?.instock && !!formik?.errors?.instock}
+            sx={{ mb: "20px" }}
+          />
 
-        <TextField
-          label="Type"
-          name="type"
-          size="small"
-          fullWidth
-          {...formik.getFieldProps("type")}
-          error={formik?.touched?.type && !!formik?.errors?.type}
-          sx={{ mb: "20px" }}
-        />
+          <TextField
+            label="Type"
+            name="type"
+            size="small"
+            fullWidth
+            {...formik.getFieldProps("type")}
+            error={formik?.touched?.type && !!formik?.errors?.type}
+            sx={{ mb: "20px" }}
+          />
 
-        <TextField
-          label="Decription"
-          name="description"
-          size="small"
-          fullWidth
-          {...formik.getFieldProps("description")}
-          error={formik?.touched?.description && !!formik?.errors?.description}
-          sx={{ mb: "20px" }}
-        />
+          <TextField
+            label="Decription"
+            name="description"
+            size="small"
+            fullWidth
+            {...formik.getFieldProps("description")}
+            error={
+              formik?.touched?.description && !!formik?.errors?.description
+            }
+            sx={{ mb: "20px" }}
+          />
 
-        <Button type="submit" variant="contained" color="primary">
-          Post
-        </Button>
-      </Box>
-    </Paper>
+          <Button type="submit" variant="contained" color="primary">
+            Post
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 
