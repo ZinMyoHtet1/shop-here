@@ -16,7 +16,15 @@ const Product = ({ products }) => {
     <Grid container justifyContent="center" columns={16} rowSpacing={2}>
       {products.map((product) => {
         return (
-          <Grid item sm={16} md={8} lg={5.3} key={product._id}>
+          <Grid
+            item
+            sm={16}
+            md={8}
+            lg={5.3}
+            key={product._id}
+            display="flex"
+            justifyContent="center"
+          >
             <Card sx={{ width: 280 }}>
               <CardMedia
                 sx={{ height: 200 }}

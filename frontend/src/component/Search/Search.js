@@ -10,11 +10,13 @@ const handleSearch = () => {
 
 const Search = () => {
   return (
-    <Box sx={{ maxWidth: 400, ml: "auto" }}>
+    <Box sx={{ maxWidth: 400, ml: "auto", mb: "10px" }}>
       <Input
         placeholder="Search"
         inputProps={ariaLabel}
-        onKeyDown={handleSearch}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) handleSearch();
+        }}
         fullWidth
         endAdornment={
           <InputAdornment position="end">

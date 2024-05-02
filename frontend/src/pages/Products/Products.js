@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../actions/product";
+import useProductActions from "../../actions/product";
 import { Grid, Box, Button, Toolbar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
@@ -9,53 +9,53 @@ import PostForm from "../../component/Form/Post/PostForm";
 import Search from "../../component/Search/Search";
 
 const Products = () => {
+  const { getAllProducts } = useProductActions();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  const { products } = useSelector((state) => state?.products);
+  const { data: products } = useSelector((state) => state?.products);
   useEffect(() => {
     dispatch(getAllProducts());
+
+    // return()=>{
+
+    // }
   }, [dispatch]);
-  console.log(state);
 
   return (
     <Box p="10px 20px">
-      <Grid container direction="row">
-        <Grid item sx={{ width: "100%" }}>
-          <Toolbar>
-            <Button
-              component={NavLink}
-              to="/products"
-              variant="outlined"
-              color="primary"
-            >
-              Products
-            </Button>
-            <Button
-              component={NavLink}
-              to="/about"
-              variant="outlined"
-              color="primary"
-              sx={{ ml: "10px" }}
-            >
-              About
-            </Button>
-          </Toolbar>
-        </Grid>
-        <Grid item>
-          <Grid
-            container
-            direction={{ xs: "column-reverse", sm: "row" }}
-            columns={18}
-            rowSpacing="20px"
-          >
-            <Grid
-              item
-              xs={18}
-              sm={10}
-              md={13}
-              lg={14}
-              justifyContent="space-around"
-            >
+      <Grid
+        container
+        columns={12}
+        direction={{ xs: "column-reverse", sm: "row" }}
+      >
+        <Grid item xs={12} sm={6} md={8} lg={9}>
+          <Grid container direction="column">
+            <Grid item xs={12}>
+              <Toolbar
+                sx={{
+                  display: { xs: "flex" },
+                  justifyContent: { xs: "center", sm: "flex-start" },
+                }}
+              >
+                <Button
+                  component={NavLink}
+                  to="/products"
+                  variant="outlined"
+                  color="primary"
+                >
+                  Products
+                </Button>
+                <Button
+                  component={NavLink}
+                  to="/about"
+                  variant="outlined"
+                  color="primary"
+                  sx={{ ml: "10px" }}
+                >
+                  About
+                </Button>
+              </Toolbar>
+            </Grid>
+            <Grid item xs={12}>
               {products?.length === 0 && <h4>Nothing to display</h4>}
               {products?.length > 0 ? (
                 <Product products={products} />
@@ -63,21 +63,22 @@ const Products = () => {
                 <div>loading...</div>
               )}
             </Grid>
-            <Grid
-              item
-              xs={18}
-              sm={8}
-              md={5}
-              lg={4}
-              display="flex"
-              justifyContent="center"
-            >
-              <Box xs={{ display: "flex", flexDirection: "column" }}>
-                <Search />
-                <PostForm />
-              </Box>
-            </Grid>
           </Grid>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+          display="flex"
+          justifyContent="center"
+        >
+          <Box>
+            <Search />
+            <PostForm />
+          </Box>
         </Grid>
       </Grid>
     </Box>
