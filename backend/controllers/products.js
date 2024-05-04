@@ -1,21 +1,22 @@
 import Product from "../models/productModel.js";
 
 export const getAllProducts = async (req, res) => {
+  const { page = 1 } = req.query;
   try {
-    const { creater, sort, page = 1 } = req.query;
-    const LIMIT = 9;
+    const LIMIT = 8;
     console.log(req.query);
     const startIndex = (Number(page) - 1) * LIMIT;
     const total = await Product.countDocuments({});
 
     const query = Product.find({});
-    if (sort) query.sort({ createdAt: -1 });
-    if (creater) query.where("creater").equals(creater);
-
-    const products = await query.limit(LIMIT).skip(startIndex).exec();
+    const products = await query
+      .sort({ createdAt: -1 })
+      .limit(LIMIT)
+      .skip(startIndex)
+      .exec();
     res.status(200).json({
       data: products,
-      NumberOfDocs: total,
+      curPage: Number(page),
       NumberOfPages: Math.ceil(total / LIMIT),
     });
   } catch (error) {

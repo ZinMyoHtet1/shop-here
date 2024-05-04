@@ -13,21 +13,26 @@ import suncream from "../images/suncream.jpg";
 
 const Product = ({ products }) => {
   return (
-    <Grid container justifyContent="center" columns={16} rowSpacing={2}>
+    <Grid
+      container
+      display="flex"
+      justifyContent="flex-start"
+      columns={16}
+      rowSpacing={2}
+    >
       {products.map((product) => {
         return (
           <Grid
             item
             sm={16}
             md={8}
-            lg={5.3}
+            lg={4}
             key={product._id}
-            display="flex"
-            justifyContent="center"
+            sx={{ display: "flex", justifyContent: "center" }}
           >
-            <Card sx={{ width: 280 }}>
+            <Card sx={{ width: { xs: 280, lg: 210, m: "auto" } }}>
               <CardMedia
-                sx={{ height: 200 }}
+                sx={{ height: { xs: 200, lg: 130 } }}
                 image={suncream}
                 title="green iguana"
               />

@@ -9,10 +9,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import useProductActions from "../../../actions/product";
-import { useState } from "react";
-
-import { ExpandMore } from "@mui/icons-material";
+import { postNewProduct } from "../../../actions/product";
 
 const initialValues = {
   creater: "",
@@ -49,15 +46,8 @@ const validate = (values) => {
   return errors;
 };
 
-const PostForm = ({ id }) => {
-  const [expanded, setExpanded] = useState(true);
-  const { postNewProduct } = useProductActions();
+const PostForm = ({ id, expanded }) => {
   const dispatch = useDispatch();
-
-  const handleExpand = () => {
-    setExpanded((prev) => !prev);
-  };
-
   const onSubmit = (values) => {
     dispatch(postNewProduct(values));
   };
@@ -71,31 +61,9 @@ const PostForm = ({ id }) => {
     validateOnMount: true,
   });
 
-  console.log(formik.errors, formik?.touched);
   return (
     <Box sx={{ mt: "10px", mb: "20px" }}>
       <Paper elevation={1} sx={{ width: { xs: 280, sm: 260, md: 280 } }}>
-        <Button
-          variant="text"
-          color="primary"
-          sx={{
-            display: { xs: "flex", sm: "none" },
-            alignItems: "center",
-            m: "5px",
-            ml: "auto",
-          }}
-          endIcon={
-            <ExpandMore
-              sx={{
-                transform: !expanded ? "rotate(0deg)" : "rotate(180deg)",
-                transition: "all 0.2s ease-in",
-              }}
-            />
-          }
-          onClick={handleExpand}
-        >
-          Create
-        </Button>
         <Collapse in={expanded} timeout="auto" unmountedOnExit>
           <Box component="form" onSubmit={formik.handleSubmit} p="10px">
             <TextField
@@ -106,7 +74,7 @@ const PostForm = ({ id }) => {
               {...formik.getFieldProps("creater")}
               error={formik?.touched?.creater && !!formik?.errors?.creater}
               sx={{ mb: "20px" }}
-              autoFocus
+              autoFocus={false}
             />
 
             <TextField

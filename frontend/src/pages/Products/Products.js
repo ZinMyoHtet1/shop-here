@@ -1,24 +1,26 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import useProductActions from "../../actions/product";
-import { Grid, Box, Button, Toolbar } from "@mui/material";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Grid, Box, Button, Toolbar, Divider } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Product from "../../component/Product/Product";
 import PostForm from "../../component/Form/Post/PostForm";
 import Search from "../../component/Search/Search";
+import PaginationBar from "../../component/Pagination/Pagination";
+import PostButton from "../../component/PostButton/PostButton";
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 const Products = () => {
-  const { getAllProducts } = useProductActions();
-  const dispatch = useDispatch();
-  const { data: products } = useSelector((state) => state?.products);
-  useEffect(() => {
-    dispatch(getAllProducts());
-
-    // return()=>{
-
-    // }
-  }, [dispatch]);
+  const isXS = { xs: true, sm: false };
+  console.log("isXs", isXS);
+  const { products } = useSelector((state) => state?.products);
+  const query = useQuery();
+  const page = query.get("page") || 1;
+  // const search = query.get("search");
 
   return (
     <Box p="10px 20px">
@@ -39,15 +41,16 @@ const Products = () => {
                 <Button
                   component={NavLink}
                   to="/products"
-                  variant="outlined"
+                  variant="text"
                   color="primary"
                 >
                   Products
                 </Button>
+                {"|"}
                 <Button
                   component={NavLink}
                   to="/about"
-                  variant="outlined"
+                  variant="text"
                   color="primary"
                   sx={{ ml: "10px" }}
                 >
@@ -55,13 +58,20 @@ const Products = () => {
                 </Button>
               </Toolbar>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               {products?.length === 0 && <h4>Nothing to display</h4>}
               {products?.length > 0 ? (
                 <Product products={products} />
               ) : (
                 <div>loading...</div>
               )}
+            </Grid>
+            <Grid item xs={12} sx={{ display: { xs: "block", sm: "none" } }}>
+              <PaginationBar page={page} />
             </Grid>
           </Grid>
         </Grid>
@@ -76,8 +86,10 @@ const Products = () => {
           justifyContent="center"
         >
           <Box>
+            <PostButton expanded={true} setExpanded={() => {}} />
             <Search />
-            <PostForm />
+            <PostForm expanded={true} />
+            <PaginationBar page={page} />
           </Box>
         </Grid>
       </Grid>
