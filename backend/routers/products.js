@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getAllProducts,
+  getProductsBySearch,
   postProduct,
   getSingleProduct,
   updateProduct,
@@ -11,6 +12,9 @@ const router = express.Router();
 
 //GET ALL PRODUCTS
 router.get("/", getAllProducts);
+
+//GET PRODUCTS BY SEARCH
+router.get("/search", getProductsBySearch);
 
 //GET A PRODUCT
 router.get("/:id", getSingleProduct);

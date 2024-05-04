@@ -7,8 +7,8 @@ import { useLocation } from "react-router-dom";
 import Product from "../../component/Product/Product";
 import PostForm from "../../component/Form/Post/PostForm";
 import Search from "../../component/Search/Search";
-import PaginationBar from "../../component/Pagination/Pagination";
-import PostButton from "../../component/PostButton/PostButton";
+import PaginationBar from "../../component/Pagination/Pagination.js";
+import PostButton from "../../component/PostButton/PostButton.js";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -18,6 +18,8 @@ const Products = () => {
   const { products } = useSelector((state) => state?.products);
   const query = useQuery();
   const page = query.get("page") || 1;
+  const search = query.get("search");
+  console.log("search", search);
 
   const isSmBreakpoint = useMediaQuery("(max-width:600px)");
   console.log(isSmBreakpoint);
@@ -69,15 +71,25 @@ const Products = () => {
               xs={12}
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              {products?.length === 0 && <h4>Nothing to display</h4>}
-              {products?.length > 0 ? (
+              {products ? (
                 <Product products={products} />
               ) : (
                 <div>loading...</div>
               )}
+              {products?.length === 0 && <h4>Nothing to display</h4>}
             </Grid>
-            <Grid item xs={12} sx={{ display: { xs: "block", sm: "none" } }}>
-              <PaginationBar page={page} />
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                justifyContent: "center",
+                p: "10px",
+              }}
+            >
+              <Box sx={{ width: 280 }}>
+                <PaginationBar page={page} />
+              </Box>
             </Grid>
           </Grid>
         </Grid>
@@ -93,9 +105,9 @@ const Products = () => {
         >
           <Box>
             <PostButton expanded={!expanded} setExpanded={setExpanded} />
-            <Search />
+            <Search search={search} />
             <PostForm expanded={expanded} />
-            <PaginationBar page={page} />
+            {!search && <PaginationBar page={page} />}
           </Box>
         </Grid>
       </Grid>

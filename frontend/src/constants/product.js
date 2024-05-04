@@ -1,3 +1,4 @@
 export const FETCH_ALL = "FETCH_ALL";
+export const FETCH_PRODUCTS_SEARCH = "FETCH_PRODUCTS_SEARCH";
 export const CREATE = "CREATE";
 export const FETCH_A_PRODUCT = "FETCH_A_PRODUCT";

@@ -24,11 +24,27 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
+export const getProductsBySearch = async (req, res) => {
+  const { search } = req.query;
+  try {
+    const searchQuery = new RegExp(search, "i");
+    const products = await Product.find({ name: searchQuery }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      data: products,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Cannot fetch from db" });
+  }
+};
+
 export const getSingleProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
-    res.status(200).json({ data: product });
+    res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
