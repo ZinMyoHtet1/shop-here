@@ -21,7 +21,7 @@ const PostButton = ({ expanded, setExpanded }) => {
         endIcon={
           <ExpandMore
             sx={{
-              transform: !expanded ? "rotate(0deg)" : "rotate(180deg)",
+              transform: expanded ? "rotate(0deg)" : "rotate(180deg)",
               transition: "all 0.2s ease-in",
             }}
           />

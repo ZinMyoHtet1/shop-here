@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Grid, Box, Button, Toolbar, Divider } from "@mui/material";
+import { Grid, Box, Button, Toolbar, useMediaQuery } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -15,13 +15,19 @@ const useQuery = () => {
 };
 
 const Products = () => {
-  const isXS = { xs: true, sm: false };
-  console.log("isXs", isXS);
   const { products } = useSelector((state) => state?.products);
   const query = useQuery();
   const page = query.get("page") || 1;
-  // const search = query.get("search");
 
+  const isSmBreakpoint = useMediaQuery("(max-width:600px)");
+  console.log(isSmBreakpoint);
+  const [expanded, setExpanded] = useState(!isSmBreakpoint);
+
+  useEffect(() => {
+    setExpanded(!isSmBreakpoint);
+  }, [isSmBreakpoint]);
+
+  console.log(expanded);
   return (
     <Box p="10px 20px">
       <Grid
@@ -86,9 +92,9 @@ const Products = () => {
           justifyContent="center"
         >
           <Box>
-            <PostButton expanded={true} setExpanded={() => {}} />
+            <PostButton expanded={!expanded} setExpanded={setExpanded} />
             <Search />
-            <PostForm expanded={true} />
+            <PostForm expanded={expanded} />
             <PaginationBar page={page} />
           </Box>
         </Grid>

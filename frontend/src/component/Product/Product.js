@@ -16,7 +16,7 @@ const Product = ({ products }) => {
     <Grid
       container
       display="flex"
-      justifyContent="flex-start"
+      justifyContent="center"
       columns={16}
       rowSpacing={2}
     >
