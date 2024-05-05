@@ -10,9 +10,7 @@ const PaginationBar = ({ page }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { NumberOfPages } = useSelector((state) => state.products);
-  const state = useSelector((state) => state);
   const classes = useStyles();
-  console.log(state);
 
   useEffect(() => {
     if (page) dispatch(getAllProducts(page));

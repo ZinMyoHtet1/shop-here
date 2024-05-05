@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Input, IconButton, InputAdornment } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -8,13 +8,19 @@ import { getProductsBySearch } from "../../actions/product";
 
 const ariaLabel = { "aria-label": "description" };
 
-const Search = ({ search }) => {
-  const [searchQuery, setSearchQuery] = useState(search);
+const Search = ({ search = undefined }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState(search);
+
+  useEffect(() => {
+    if (searchQuery) {
+      console.log("running");
+      dispatch(getProductsBySearch(searchQuery));
+    }
+  }, [searchQuery]);
 
   const handleSearch = () => {
-    dispatch(getProductsBySearch(searchQuery));
     navigate(`/products/search?search=${searchQuery}`);
   };
   return (

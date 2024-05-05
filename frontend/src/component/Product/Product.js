@@ -7,11 +7,21 @@ import {
   Typography,
   IconButton,
   Grid,
+  Divider,
 } from "@mui/material";
-import { Favorite } from "@mui/icons-material";
+import { Delete, Favorite } from "@mui/icons-material";
 import suncream from "../images/suncream.jpg";
+import { useDispatch } from "react-redux";
+
+import { deleteProduct } from "../../actions/product";
 
 const Product = ({ products }) => {
+  const dispatch = useDispatch();
+  const handleDelete = (_id) => {
+    // console.log(_id);
+    dispatch(deleteProduct(_id));
+    console.log("delete clcik", _id);
+  };
   return (
     <Grid
       container
@@ -28,7 +38,11 @@ const Product = ({ products }) => {
             md={8}
             lg={4}
             key={product._id}
-            sx={{ display: "flex", justifyContent: "center" }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
           >
             <Card sx={{ width: { xs: 280, lg: 210, m: "auto" } }}>
               <CardMedia
@@ -47,9 +61,22 @@ const Product = ({ products }) => {
                   description: {product.description}
                 </Typography>
               </CardContent>
-              <CardActions>
+              <Divider />
+              <CardActions
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <IconButton color="error">
                   <Favorite />
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={() => handleDelete(product._id)}
+                >
+                  <Delete />
                 </IconButton>
               </CardActions>
             </Card>

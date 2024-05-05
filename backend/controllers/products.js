@@ -64,7 +64,7 @@ export const postProduct = async (req, res) => {
     };
 
     const product = await Product.create(productForm);
-    res.status(200).json({ data: product });
+    res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -75,7 +75,7 @@ export const deleteProduct = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findByIdAndDelete(id);
     if (!product) throw Error("We cannot find product with this id");
-    res.status(200).json({ data: product });
+    res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

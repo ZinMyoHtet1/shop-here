@@ -8,4 +8,5 @@ export const fetchAll = (page) => instance.get(`?page=${page}`);
 export const fetchProductsBySearch = (search) =>
   instance.get(`/search?search=${search}`);
 export const postProduct = (postForm) => instance.post("/", postForm);
-export const fetchProduct = (id) => instance.get("/:id");
+export const deleteProduct = (id) => instance.delete(`/${id}`);
+export const fetchProduct = (id) => instance.get(`/${id}`);
