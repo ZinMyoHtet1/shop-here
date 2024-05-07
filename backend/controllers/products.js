@@ -44,18 +44,22 @@ export const getSingleProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
+    console.log(req.userId);
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error });
+    console.log(error);
   }
 };
 
 export const postProduct = async (req, res) => {
   try {
     const reqForm = req.body;
+
     const productForm = {
-      creater: reqForm.creater,
+      creater: req.userId,
       name: reqForm.name,
+      product: reqForm.product,
       price: Number(reqForm.price),
       currency: reqForm.currency,
       instock: Number(reqForm.instock),

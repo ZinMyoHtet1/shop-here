@@ -10,7 +10,11 @@ const productSchema = new Schema(
     },
     name: {
       type: String,
-      unique: true,
+      required: true,
+    },
+    product: {
+      type: String,
+      required: true,
     },
     price: {
       type: Number,
@@ -30,8 +34,8 @@ const productSchema = new Schema(
     },
     description: String,
     likes: {
-      type: Number,
-      default: 0,
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true }

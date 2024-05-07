@@ -5,13 +5,10 @@ import cors from "cors";
 dotenv.config();
 
 import productRoutes from "./routers/products.js";
+import userRoutes from "./routers/user.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-mongoose.connect(process.env.MONGOOSE_URL).then(() => {
-  app.listen(PORT, () => console.log(`Your server is running port ${PORT}`));
-});
 
 app.use(express.json());
 app.use(cors());
@@ -21,3 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
+
+mongoose.connect(process.env.MONGOOSE_URL).then(() => {
+  app.listen(PORT, () => console.log(`Your server is running port ${PORT}`));
+});

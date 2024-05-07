@@ -1,4 +1,7 @@
 import express from "express";
+
+import auth from "../middlewares/auth.js";
+
 import {
   getAllProducts,
   getProductsBySearch,
@@ -13,19 +16,19 @@ const router = express.Router();
 //GET ALL PRODUCTS
 router.get("/", getAllProducts);
 
+//POST A PRODUCT
+router.post("/", auth, postProduct);
+
+//GET A PRODUCT
+router.get("/:id", auth, getSingleProduct);
+
 //GET PRODUCTS BY SEARCH
 router.get("/search", getProductsBySearch);
 
-//GET A PRODUCT
-router.get("/:id", getSingleProduct);
-
-//POST A PRODUCT
-router.post("/", postProduct);
-
 //UPDATE A PRODUCT
-router.patch("/:id", updateProduct);
+router.patch("/:id", auth, updateProduct);
 
 //DELETE A PRODUCT
-router.delete("/:id", deleteProduct);
+router.delete("/:id", auth, deleteProduct);
 
 export default router;
