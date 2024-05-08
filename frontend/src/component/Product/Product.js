@@ -10,7 +10,6 @@ import {
   Divider,
 } from "@mui/material";
 import { Delete, Favorite } from "@mui/icons-material";
-import suncream from "../images/suncream.jpg";
 import { useDispatch } from "react-redux";
 
 import { deleteProduct } from "../../actions/product";
@@ -18,7 +17,6 @@ import { deleteProduct } from "../../actions/product";
 const Product = ({ products }) => {
   const dispatch = useDispatch();
   const handleDelete = (_id) => {
-    // console.log(_id);
     dispatch(deleteProduct(_id));
     console.log("delete clcik", _id);
   };
@@ -47,12 +45,12 @@ const Product = ({ products }) => {
             <Card sx={{ width: { xs: 280, lg: 210, m: "auto" } }}>
               <CardMedia
                 sx={{ height: { xs: 200, lg: 130 } }}
-                image={suncream}
+                image={product?.selectedFile}
                 title="green iguana"
               />
               <CardContent>
                 <Typography variant="subtitle1">
-                  name: {product.name}
+                  name: {product.product}
                 </Typography>
                 <Typography variant="subtitle1">
                   price: {product.price} {product.currency}

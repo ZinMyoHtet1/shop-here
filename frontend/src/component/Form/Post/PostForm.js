@@ -1,4 +1,6 @@
 import React from "react";
+import FileBase64 from "react-file-base64";
+
 import {
   Box,
   Paper,
@@ -11,14 +13,19 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { postNewProduct } from "../../../actions/product";
 
+const user = JSON.parse(localStorage.getItem("user"));
+
+console.log(user);
+
 const initialValues = {
-  creater: "",
-  name: "",
+  name: user?.profile?.name,
+  product: "",
   price: "",
   currency: "",
   instock: "",
   type: "",
   description: "",
+  selectedFile: "",
 };
 
 const currencyOptions = [
@@ -38,8 +45,8 @@ const currencyOptions = [
 
 const validate = (values) => {
   let errors = {};
-  if (!values.creater) errors.creater = "Required";
-  if (!values.name) errors.name = "Required";
+  if (!values.product) errors.product = "Required";
+  if (!values.type) errors.type = "Required";
   if (!values.currency) errors.currency = "Required";
   if (!values.instock) errors.instock = "Required";
 
@@ -48,7 +55,9 @@ const validate = (values) => {
 
 const PostForm = ({ id, expanded }) => {
   const dispatch = useDispatch();
+
   const onSubmit = (values) => {
+    console.log(values);
     dispatch(postNewProduct(values));
   };
 
@@ -67,26 +76,14 @@ const PostForm = ({ id, expanded }) => {
         <Collapse in={expanded} timeout="auto" unmountedOnExit>
           <Box component="form" onSubmit={formik.handleSubmit} p="10px">
             <TextField
-              label="Creater"
-              name="creater"
+              label="Product"
+              name="product"
               size="small"
               fullWidth
-              {...formik.getFieldProps("creater")}
-              error={formik?.touched?.creater && !!formik?.errors?.creater}
-              sx={{ mb: "20px" }}
-              autoFocus={false}
-            />
-
-            <TextField
-              label="Name"
-              name="name"
-              size="small"
-              fullWidth
-              {...formik.getFieldProps("name")}
-              error={formik?.touched?.name && !!formik?.errors?.name}
+              {...formik.getFieldProps("product")}
+              error={formik?.touched?.product && !!formik?.errors?.product}
               sx={{ mb: "20px" }}
             />
-
             <TextField
               label="Price"
               name="price"
@@ -98,14 +95,12 @@ const PostForm = ({ id, expanded }) => {
               error={formik?.touched?.price && !!formik?.errors?.price}
               sx={{ mb: "20px" }}
             />
-
             <TextField
               label="Currency"
               name="currency"
               size="small"
               fullWidth
               select
-              defaultValue={""}
               {...formik.getFieldProps("currency")}
               error={formik?.touched?.currency && !!formik?.errors?.currency}
               sx={{ mb: "20px" }}
@@ -116,7 +111,6 @@ const PostForm = ({ id, expanded }) => {
                 </MenuItem>
               ))}
             </TextField>
-
             <TextField
               label="Instock"
               name="instock"
@@ -128,7 +122,6 @@ const PostForm = ({ id, expanded }) => {
               error={formik?.touched?.instock && !!formik?.errors?.instock}
               sx={{ mb: "20px" }}
             />
-
             <TextField
               label="Type"
               name="type"
@@ -138,7 +131,6 @@ const PostForm = ({ id, expanded }) => {
               error={formik?.touched?.type && !!formik?.errors?.type}
               sx={{ mb: "20px" }}
             />
-
             <TextField
               label="Decription"
               name="description"
@@ -150,6 +142,15 @@ const PostForm = ({ id, expanded }) => {
               }
               sx={{ mb: "20px" }}
             />
+            <div>
+              <FileBase64
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) => {
+                  formik.setFieldValue("selectedFile", base64);
+                }}
+              />
+            </div>
 
             <Button type="submit" variant="contained" color="primary">
               Post

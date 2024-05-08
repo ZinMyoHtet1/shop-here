@@ -6,7 +6,7 @@ import {
   FETCH_A_PRODUCT,
   FETCH_PRODUCTS_SEARCH,
   START_LOADING,
-} from "../constants/product";
+} from "../constants";
 
 const productReducer = (state = { isLoading: true, products: [] }, action) => {
   switch (action.type) {

@@ -9,7 +9,6 @@ const createToken = (email, id) => {
 
 export const signin = async (req, res) => {
   const postForm = req.body;
-  console.log(postForm);
   try {
     const isExistingUser = await User.findOne({ email: postForm.email });
     if (!isExistingUser)
@@ -67,4 +66,12 @@ export const signup = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error });
   }
+};
+
+export const googleSignin = (req, res) => {
+  const profile = req.body;
+
+  const accessToken = createToken(profile?.email, profile?.id);
+  if (!accessToken) return res.status(404).json({ message: "Unauthorized" });
+  res.status(200).json({ profile, accessToken });
 };

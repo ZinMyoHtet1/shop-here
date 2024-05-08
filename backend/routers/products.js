@@ -20,7 +20,7 @@ router.get("/", getAllProducts);
 router.post("/", auth, postProduct);
 
 //GET A PRODUCT
-router.get("/:id", auth, getSingleProduct);
+router.get("/:id", getSingleProduct);
 
 //GET PRODUCTS BY SEARCH
 router.get("/search", getProductsBySearch);

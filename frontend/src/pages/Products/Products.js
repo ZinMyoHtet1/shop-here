@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  Grid,
-  Box,
-  Button,
-  Toolbar,
-  useMediaQuery,
-  CircularProgress,
-} from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Grid, Box, useMediaQuery, CircularProgress } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
 import Product from "../../component/Product/Product";
@@ -44,37 +36,14 @@ const Products = () => {
       >
         <Grid item xs={12} sm={6} md={8} lg={9}>
           <Grid container direction="column">
-            <Grid item xs={12}>
-              <Toolbar
-                sx={{
-                  display: { xs: "flex" },
-                  justifyContent: { xs: "center", sm: "flex-start" },
-                }}
-              >
-                <Button
-                  component={NavLink}
-                  to="/products"
-                  variant="text"
-                  color="primary"
-                >
-                  Products
-                </Button>
-                {"|"}
-                <Button
-                  component={NavLink}
-                  to="/about"
-                  variant="text"
-                  color="primary"
-                  sx={{ ml: "10px" }}
-                >
-                  About
-                </Button>
-              </Toolbar>
-            </Grid>
             <Grid
               item
               xs={12}
-              sx={{ display: "flex", justifyContent: "center" }}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                // height: { xs: "100vh" },
+              }}
             >
               {isLoading ? (
                 <CircularProgress color="primary" />

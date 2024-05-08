@@ -6,7 +6,7 @@ import {
   FETCH_A_PRODUCT,
   FETCH_PRODUCTS_SEARCH,
   START_LOADING,
-} from "../constants/product";
+} from "../constants";
 import * as api from "../api/products";
 
 export const getAllProducts = (page) => async (dispatch) => {
@@ -42,7 +42,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 
 export const getProductById = (id) => async (dispatch) => {
   try {
-    const { data } = await api.fetchProduct();
+    const { data } = await api.fetchProduct(id);
     dispatch({ type: FETCH_A_PRODUCT, payload: data });
   } catch (error) {
     console.log(error);
@@ -52,7 +52,7 @@ export const getProductById = (id) => async (dispatch) => {
 export const postNewProduct = (postForm) => async (dispatch) => {
   try {
     const { data } = await api.postProduct(postForm);
-    console.log(data);
+    console.log("data", data);
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
     console.log(error);

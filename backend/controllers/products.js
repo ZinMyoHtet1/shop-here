@@ -57,7 +57,7 @@ export const postProduct = async (req, res) => {
     const reqForm = req.body;
 
     const productForm = {
-      creater: req.userId,
+      creater: String(req.userId),
       name: reqForm.name,
       product: reqForm.product,
       price: Number(reqForm.price),
@@ -65,12 +65,14 @@ export const postProduct = async (req, res) => {
       instock: Number(reqForm.instock),
       type: reqForm.type,
       description: reqForm.description,
+      selectedFile: reqForm.selectedFile,
     };
 
     const product = await Product.create(productForm);
+    console.log("product", product);
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error });
   }
 };
 

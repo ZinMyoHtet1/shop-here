@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Input, IconButton, InputAdornment } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 import SearchIcon from "@mui/icons-material/Search";
 import { getProductsBySearch } from "../../actions/product";
@@ -12,13 +12,13 @@ const Search = ({ search = undefined }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState(search);
+  const location = useLocation();
 
   useEffect(() => {
     if (searchQuery) {
-      console.log("running");
       dispatch(getProductsBySearch(searchQuery));
     }
-  }, [searchQuery]);
+  }, [location]);
 
   const handleSearch = () => {
     navigate(`/products/search?search=${searchQuery}`);

@@ -33,6 +33,10 @@ const productSchema = new Schema(
       required: true,
     },
     description: String,
+    selectedFile: {
+      type: String,
+      required: true,
+    },
     likes: {
       type: [String],
       default: [],
@@ -42,5 +46,4 @@ const productSchema = new Schema(
 );
 
 const Product = mongoose.model("Product", productSchema);
-
 export default Product;
