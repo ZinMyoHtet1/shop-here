@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import {
   Box,
   AppBar,
@@ -26,7 +26,7 @@ const NavBar = () => {
     const token = user?.accessToken;
 
     if (token) {
-      const decodedToken = decode(token);
+      const decodedToken = jwtDecode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     setUser(JSON.parse(localStorage.getItem("user")));
