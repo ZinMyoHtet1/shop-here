@@ -7,7 +7,7 @@ const PostButton = ({ expanded, setExpanded }) => {
     setExpanded((prev) => !prev);
   };
   return (
-    <Box sx={{ width: 280 }}>
+    <Box sx={{ maxWidth: 400 }}>
       <Button
         variant="contained"
         color="primary"
