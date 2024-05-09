@@ -16,14 +16,14 @@ const router = express.Router();
 //GET ALL PRODUCTS
 router.get("/", getAllProducts);
 
-//GET PRODUCTS BY SEARCH
-router.get("/search", getProductsBySearch);
+//POST A PRODUCT
+router.post("/", auth, postProduct);
 
 //GET A PRODUCT
 router.get("/:id", getSingleProduct);
 
-//POST A PRODUCT
-router.post("/", auth, postProduct);
+//GET PRODUCTS BY SEARCH
+router.get("/search", getProductsBySearch);
 
 //UPDATE A PRODUCT
 router.patch("/:id", auth, updateProduct);
