@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Grid, Box, useMediaQuery, CircularProgress } from "@mui/material";
+import {
+  Grid,
+  Box,
+  useMediaQuery,
+  CircularProgress,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { useLocation } from "react-router-dom";
 
 import Product from "../../component/Product/Product";
@@ -16,13 +23,13 @@ const useQuery = () => {
 const Products = () => {
   const { isLoading, products } = useSelector((state) => state?.products);
   const query = useQuery();
+  const user = useSelector((state) => state.auth);
   const page = query.get("page") || 1;
   const search = query.get("search");
-  console.log(products);
 
   const isSmBreakpoint = useMediaQuery("(max-width:600px)");
   const [expanded, setExpanded] = useState(!isSmBreakpoint);
-
+  console.log(user);
   useEffect(() => {
     setExpanded(!isSmBreakpoint);
   }, [isSmBreakpoint]);
@@ -42,7 +49,6 @@ const Products = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                // height: { xs: "100vh" },
               }}
             >
               {isLoading ? (
@@ -80,7 +86,18 @@ const Products = () => {
           <Box>
             <PostButton expanded={!expanded} setExpanded={setExpanded} />
             <Search search={search} />
-            <PostForm expanded={expanded} />
+            {user.accessToken ? (
+              <PostForm expanded={expanded} />
+            ) : (
+              <Paper>
+                <Box sx={{ p: "20px", mb: "10px" }}>
+                  <Typography>
+                    Signin or Signup to have great features
+                  </Typography>
+                </Box>
+              </Paper>
+            )}
+
             {!search && <PaginationBar page={page} />}
           </Box>
         </Grid>

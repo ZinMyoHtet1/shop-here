@@ -39,7 +39,7 @@ const Auth = () => {
   };
 
   //GOOGLE LOGIN
-  const login = useGoogleLogin({
+  const loginGoogle = useGoogleLogin({
     onSuccess: (res) => googleSuccess(res),
     onError: (error) => googleFailure(error),
   });
@@ -133,28 +133,10 @@ const Auth = () => {
                 color="primary"
                 size="small"
                 sx={{ ml: "10px" }}
-                onClick={login}
+                onClick={loginGoogle}
               >
                 Google
               </Button>
-              {/* <GoogleLogin
-                clientId="348710026541-642hkvh9nkvgnpsh297r9cvc10s2nav6.apps.googleusercontent.com"
-                render={(renderProps) => (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    sx={{ ml: "10px" }}
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
-                  >
-                    Google
-                  </Button>
-                )}
-                onSuccess={googleSuccess}
-                onFailure={googleFailure}
-                cookiePolicy={"single_host_origin"}
-              /> */}
             </Grid>
             <Grid
               item

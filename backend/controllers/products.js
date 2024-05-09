@@ -28,7 +28,7 @@ export const getProductsBySearch = async (req, res) => {
   const { search } = req.query;
   try {
     const searchQuery = new RegExp(search, "i");
-    const products = await Product.find({ name: searchQuery }).sort({
+    const products = await Product.find({ product: searchQuery }).sort({
       createdAt: -1,
     });
 
@@ -44,7 +44,6 @@ export const getSingleProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
-    console.log(req.userId);
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error });

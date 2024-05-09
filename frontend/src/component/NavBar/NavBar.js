@@ -50,7 +50,10 @@ const NavBar = () => {
           </Box>
           {user ? (
             <Stack direction="row" spacing={2} ml="auto" alignItems="center">
-              <Avatar src={user?.profile?.picture} size="small">
+              <Avatar
+                src={user?.profile?.picture}
+                sx={{ width: 24, height: 24 }}
+              >
                 {user?.profile?.name.split("")[0]}
               </Avatar>
               <Typography variant="body2" color="inherit">
@@ -60,6 +63,7 @@ const NavBar = () => {
                 component={NavLink}
                 variant="contained"
                 color="error"
+                size="small"
                 onClick={logout}
               >
                 Logout
@@ -71,6 +75,7 @@ const NavBar = () => {
               variant="contained"
               color="primary"
               to="/auth"
+              size="small"
               sx={{ ml: "auto" }}
             >
               Sigin

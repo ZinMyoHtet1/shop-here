@@ -15,8 +15,6 @@ import { postNewProduct } from "../../../actions/product";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
-console.log(user);
-
 const initialValues = {
   name: user?.profile?.name,
   product: "",
@@ -57,7 +55,6 @@ const PostForm = ({ id, expanded }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
-    console.log(values);
     dispatch(postNewProduct(values));
   };
 

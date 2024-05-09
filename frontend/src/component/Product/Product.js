@@ -16,10 +16,13 @@ import { deleteProduct } from "../../actions/product";
 
 const Product = ({ products }) => {
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleDelete = (_id) => {
     dispatch(deleteProduct(_id));
     console.log("delete clcik", _id);
   };
+
   return (
     <Grid
       container
@@ -70,12 +73,14 @@ const Product = ({ products }) => {
                 <IconButton color="error">
                   <Favorite />
                 </IconButton>
-                <IconButton
-                  color="inherit"
-                  onClick={() => handleDelete(product._id)}
-                >
-                  <Delete />
-                </IconButton>
+                {product.creater === (user?.profile._id || user?.profile.id) ? (
+                  <IconButton
+                    color="inherit"
+                    onClick={() => handleDelete(product._id)}
+                  >
+                    <Delete />
+                  </IconButton>
+                ) : null}
               </CardActions>
             </Card>
           </Grid>
