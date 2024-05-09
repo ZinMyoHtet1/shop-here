@@ -14,7 +14,7 @@ const PaginationBar = ({ page }) => {
 
   useEffect(() => {
     if (page) dispatch(getAllProducts(page));
-  }, [page]);
+  }, [dispatch, page]);
 
   return (
     <Card elevation={4} sx={{ p: "10px auto" }}>

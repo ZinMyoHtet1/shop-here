@@ -18,7 +18,7 @@ const Search = ({ search = undefined }) => {
     if (searchQuery) {
       dispatch(getProductsBySearch(searchQuery));
     }
-  }, [location]);
+  }, [dispatch, location, searchQuery]);
 
   const handleSearch = () => {
     navigate(`/products/search?search=${searchQuery}`);
