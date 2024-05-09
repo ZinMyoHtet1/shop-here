@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import {
   Box,
@@ -22,6 +22,12 @@ const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const logout = useCallback(() => {
+    dispatch({ type: LOGOUT });
+    navigate("/");
+  });
+
   useEffect(() => {
     const token = user?.accessToken;
 
@@ -30,12 +36,7 @@ const NavBar = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     setUser(JSON.parse(localStorage.getItem("user")));
-  }, [location]);
-
-  const logout = () => {
-    dispatch({ type: LOGOUT });
-    navigate("/");
-  };
+  }, [logout, user?.accessToken, location]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
