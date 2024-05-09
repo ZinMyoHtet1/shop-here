@@ -23,7 +23,7 @@ const useQuery = () => {
 const Products = () => {
   const { isLoading, products } = useSelector((state) => state?.products);
   const query = useQuery();
-  const user = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
   const page = query.get("page") || 1;
   const search = query.get("search");
 
@@ -68,7 +68,7 @@ const Products = () => {
               }}
             >
               <Box sx={{ width: 280 }}>
-                {!search && <PaginationBar page={page} />}
+                {!search && !isSmBreakpoint && <PaginationBar page={page} />}
               </Box>
             </Grid>
           </Grid>
