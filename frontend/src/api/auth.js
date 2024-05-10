@@ -6,7 +6,7 @@ export const fetchGoogleProfile = (accessToken) =>
   );
 
 const instance = axios.create({
-  baseURL: "http://localhost:4000/api/users",
+  baseURL: "https://shop-here-h4x5.onrender.com/api/users",
 });
 
 export const fetchSignin = (postForm) => instance.post("/signin", postForm);
