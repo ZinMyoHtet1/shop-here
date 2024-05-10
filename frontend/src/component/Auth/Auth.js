@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Paper, Grid, Typography, Button } from "@mui/material";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 import Input from "./Input";
 import { getGoogleProfile, postSignin, postSignup } from "../../actions/auth";
@@ -12,7 +12,12 @@ const Auth = () => {
   const [postForm, setPostForm] = useState({});
   const [isSignIn, setIsSignIn] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const redirectPath = location.state?.path || "/";
+
+  const redirect = () => navigate(redirectPath, { replace: true });
 
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -29,12 +34,12 @@ const Auth = () => {
 
   const handleSignIn = () => {
     console.log("sign in");
-    dispatch(postSignin(postForm, navigate));
+    dispatch(postSignin(postForm, redirect));
     clear();
   };
   const handleSignUp = () => {
     console.log("sign up");
-    dispatch(postSignup(postForm, navigate));
+    dispatch(postSignup(postForm, redirect));
     clear();
   };
 
@@ -45,7 +50,7 @@ const Auth = () => {
   });
 
   const googleSuccess = (response) => {
-    dispatch(getGoogleProfile(response.access_token, navigate));
+    dispatch(getGoogleProfile(response.access_token, redirect));
     clear();
   };
 

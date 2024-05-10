@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Product from "../models/productModel.js";
 
 export const getAllProducts = async (req, res) => {
@@ -90,9 +91,36 @@ export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const productForm = req.body;
-    const product = await Product.findByIdAndUpdate(id, productForm);
+    const product = await Product.findByIdAndUpdate(id, productForm, {
+      new: true,
+    });
     if (!product) throw Error("There is no product with this id");
     res.status(200).json({ product: { ...product.product, ...productForm } });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const likeProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).json("Not found product with this id");
+    const product = await Product.findById(id);
+
+    if (!product) throw Error("There is no product with this id");
+    const index = product.likes.findIndex((id) => id === String(userId));
+    if (index === -1) {
+      product.likes.push(String(userId));
+    } else {
+      product.likes = product.likes.filter((id) => id !== String(userId));
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(id, product, {
+      new: true,
+    });
+    res.status(200).json(updatedProduct);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

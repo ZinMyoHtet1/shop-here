@@ -5,6 +5,7 @@ import {
   FETCH_ALL,
   FETCH_A_PRODUCT,
   FETCH_PRODUCTS_SEARCH,
+  LIKE_POST,
   START_LOADING,
 } from "../constants";
 
@@ -43,6 +44,13 @@ const productReducer = (state = { isLoading: true, products: [] }, action) => {
       };
     case FETCH_A_PRODUCT:
       return action.payload;
+    case LIKE_POST:
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product._id === action.payload._id ? action.payload : product
+        ),
+      };
     default:
       return state;
   }

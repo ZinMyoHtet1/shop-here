@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://shop-here-h4x5.onrender.com/api/products",
+  baseURL: "http://localhost:4000/api/products",
 });
 
 instance.interceptors.request.use((req) => {
@@ -18,3 +18,4 @@ export const fetchProductsBySearch = (search) =>
 export const postProduct = (postForm) => instance.post("/", postForm);
 export const deleteProduct = (id) => instance.delete(`/${id}`);
 export const fetchProduct = (id) => instance.get(`/${id}`);
+export const likePost = (id) => instance.patch(`/like/${id}`);
