@@ -5,6 +5,7 @@ import {
   FETCH_ALL,
   FETCH_A_PRODUCT,
   FETCH_PRODUCTS_SEARCH,
+  LIKE_POST,
   START_LOADING,
 } from "../constants";
 import * as api from "../api/products";
@@ -49,10 +50,18 @@ export const getProductById = (id) => async (dispatch) => {
   }
 };
 
+export const updateLikePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likePost(id);
+    dispatch({ type: LIKE_POST, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const postNewProduct = (postForm) => async (dispatch) => {
   try {
     const { data } = await api.postProduct(postForm);
-    console.log("data", data);
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
     console.log(error);

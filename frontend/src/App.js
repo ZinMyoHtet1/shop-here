@@ -10,6 +10,9 @@ import Products from "./pages/Products/Products";
 import rootReducer from "./reducers/index";
 import Auth from "./component/Auth/Auth";
 import ProductDetails from "./component/ProductDetails/ProductDetails";
+import Home from "./pages/Home/Home";
+import RequireAuth from "./component/Auth/RequireAuth";
+import Profile from "./pages/Profile/Profile";
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
@@ -18,9 +21,18 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
+      { index: true, element: <Home /> },
       {
         path: "products",
         element: <Products />,
+      },
+      {
+        path: "profile",
+        element: (
+          <RequireAuth>
+            <Profile />
+          </RequireAuth>
+        ),
       },
       {
         path: "products/search",

@@ -9,6 +9,7 @@ import {
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  likeProduct,
 } from "../controllers/products.js";
 
 const router = express.Router();
@@ -27,6 +28,9 @@ router.get("/search", getProductsBySearch);
 
 //UPDATE A PRODUCT
 router.patch("/:id", auth, updateProduct);
+
+//Like product
+router.patch("/like/:id", auth, likeProduct);
 
 //DELETE A PRODUCT
 router.delete("/:id", auth, deleteProduct);

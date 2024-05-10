@@ -6,6 +6,11 @@ import { Toolbar, Button } from "@mui/material";
 import NavBar from "../component/NavBar/NavBar";
 
 const Root = () => {
+  const activeStyle = ({ isActive }) => {
+    return {
+      fontWeight: isActive ? "bold" : "normal",
+    };
+  };
   return (
     <div>
       <NavBar />
@@ -16,6 +21,7 @@ const Root = () => {
         }}
       >
         <Button
+          style={activeStyle}
           component={NavLink}
           to="/products"
           variant="text"
@@ -25,13 +31,14 @@ const Root = () => {
         </Button>
         {"|"}
         <Button
+          style={activeStyle}
           component={NavLink}
-          to="/about"
+          to="/profile"
           variant="text"
           color="primary"
           sx={{ ml: "10px" }}
         >
-          About
+          Profile
         </Button>
       </Toolbar>
       <Outlet />
