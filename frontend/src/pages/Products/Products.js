@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Grid,
   Box,
@@ -15,7 +15,6 @@ import PostForm from "../../component/Form/Post/PostForm";
 import Search from "../../component/Search/Search";
 import PaginationBar from "../../component/Pagination/Pagination.js";
 import PostButton from "../../component/PostButton/PostButton.js";
-import { AUTH } from "../../constants/auth.js";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -24,8 +23,7 @@ const useQuery = () => {
 const Products = () => {
   const { isLoading, products } = useSelector((state) => state?.products);
   const query = useQuery();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const [user, setUser] = useState(null);
   const page = query.get("page") || 1;
   const search = query.get("search");
 
@@ -33,18 +31,9 @@ const Products = () => {
   const [expanded, setExpanded] = useState(!isSmBreakpoint);
   console.log(user);
   useEffect(() => {
-    const userState = JSON.parse(localStorage.getItem("user"));
-
-    if (userState)
-      dispatch({
-        type: AUTH,
-        payload: {
-          data: userState.profile,
-          accessToken: userState.accessToken,
-        },
-      });
+    setUser(JSON.parse(localStorage.getItem("user")));
     setExpanded(!isSmBreakpoint);
-  }, [dispatch, isSmBreakpoint]);
+  }, [isSmBreakpoint]);
 
   return (
     <Box p="10px 20px">
@@ -98,7 +87,7 @@ const Products = () => {
           <Box>
             <PostButton expanded={!expanded} setExpanded={setExpanded} />
             <Search search={search} />
-            {user.accessToken ? (
+            {user?.accessToken ? (
               <PostForm expanded={expanded} />
             ) : (
               <Paper>
